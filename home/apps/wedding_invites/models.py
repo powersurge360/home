@@ -30,5 +30,20 @@ class Guest(models.Model):
         blank=True,
     )
 
+    def concrete_guest(self):
+        return self.household.concrete_guest
+
+    concrete_guest.boolean = True
+
+    def out_of_town(self):
+        return self.household.out_of_town
+
+    out_of_town.boolean = True
+
+    def needs_transportation(self):
+        return self.household.needs_transportation
+
+    needs_transportation.boolean = True
+
     def __unicode__(self):
         return self.name
