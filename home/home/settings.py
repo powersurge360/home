@@ -41,7 +41,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Our apps
     'apps.wedding_invites',
+    'apps.vendors',
 )
 
 MIDDLEWARE_CLASSES = (
