@@ -31,17 +31,26 @@ class Guest(models.Model):
     )
 
     def concrete_guest(self):
-        return self.household.concrete_guest
+        try:
+            return self.household.concrete_guest
+        except AttributeError:
+            return False
 
     concrete_guest.boolean = True
 
     def out_of_town(self):
-        return self.household.out_of_town
+        try:
+            return self.household.out_of_town
+        except AttributeError:
+            return False
 
     out_of_town.boolean = True
 
     def needs_transportation(self):
-        return self.household.needs_transportation
+        try:
+            return self.household.needs_transportation
+        except AttributeError:
+            return False
 
     needs_transportation.boolean = True
 
