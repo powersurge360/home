@@ -17,9 +17,9 @@ class AddressFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value() == 'has_address':
-            return queryset.filter(household__address='')
-        elif self.value() == 'no_address':
             return queryset.exclude(household__address='')
+        elif self.value() == 'no_address':
+            return queryset.filter(household__address='')
 
 
 # Inlines
