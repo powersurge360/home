@@ -42,6 +42,9 @@ class GuestAdmin(admin.ModelAdmin):
         'concrete_guest',
         'out_of_town',
         'needs_transportation',
+        'child',
+        'save_the_date_sent',
+        'invite_sent',
     )
 
     def queryset(self, *args):
@@ -59,6 +62,9 @@ class GuestAdmin(admin.ModelAdmin):
         'household__out_of_town',
         'household__needs_transportation',
         AddressFilter,
+        'child',
+        'household__save_the_date_sent',
+        'household__invite_sent',
     )
 
 admin.site.register(Household, HouseholdAdmin)

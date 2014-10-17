@@ -9,6 +9,8 @@ class Household(models.Model):
     concrete_guest = models.BooleanField(default=True)
     out_of_town = models.BooleanField(default=False)
     needs_transportation = models.BooleanField(default=False)
+    save_the_date_sent = models.BooleanField(default=False)
+    invite_sent = models.BooleanField(default=False)
     notes = models.TextField(blank=True)
 
     def __unicode__(self):
@@ -23,6 +25,16 @@ class Household(models.Model):
 class Guest(models.Model):
     name = models.CharField(max_length=100)
     notes = models.TextField(blank=True)
+    rsvp = models.CharField(
+        max_length=50,
+        default='no_response',
+        choices=[
+            ('no_response', 'No Response'),
+            ('yes', 'Yes'),
+            ('no', 'No'),
+        ]
+    )
+    child = models.BooleanField(default=False)
 
     household = models.ForeignKey(
         Household,
@@ -48,6 +60,22 @@ class Guest(models.Model):
             return False
 
     concrete_guest.boolean = True
+
+    def save_the_date_sent(self):
+        try:
+            return self.household.save_the_date_sent
+        except AttributeError:
+            return False
+
+    save_the_date_sent.boolean = True
+
+    def invite_sent(self):
+        try:
+            return self.household.invite_sent
+        except AttributeError:
+            return False
+
+    invite_sent.boolean = True
 
     def out_of_town(self):
         try:
