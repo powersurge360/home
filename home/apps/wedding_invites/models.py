@@ -27,8 +27,6 @@ class Guest(models.Model):
     household = models.ForeignKey(
         Household,
         related_name='residents',
-        null=True,
-        blank=True,
     )
 
     # For admin
