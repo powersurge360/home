@@ -64,6 +64,10 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'staticfiles'),
+)
+
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
