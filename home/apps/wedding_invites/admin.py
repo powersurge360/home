@@ -49,6 +49,11 @@ class GuestAdmin(admin.ModelAdmin):
 
         return queryset.order_by('household')
 
+    search_fields = (
+        'name',
+        'household__address',
+    )
+
     list_filter = (
         'household__concrete_guest',
         'household__out_of_town',
