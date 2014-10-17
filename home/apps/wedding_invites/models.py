@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 # Create your models here.
@@ -14,8 +15,8 @@ class Household(models.Model):
         try:
             if not self.address:
                 return self.residents.first().name
-        except Exception:
-            'Unlisted Address'
+        except AttributeError:
+            return 'Unlisted Address'
         return self.address
 
 
@@ -29,6 +30,17 @@ class Guest(models.Model):
         null=True,
         blank=True,
     )
+
+    # For admin
+    def household_admin_url(self):
+        return '<a href="%s">%s</a>' % (
+            reverse(
+                'admin:wedding_invites_household_change',
+                args=(self.household.pk,)
+            ),
+            str(self.household),
+        )
+    household_admin_url.allow_tags = True
 
     def concrete_guest(self):
         try:

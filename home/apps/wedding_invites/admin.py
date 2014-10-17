@@ -21,11 +21,12 @@ class HouseholdAdmin(admin.ModelAdmin):
 class GuestAdmin(admin.ModelAdmin):
     list_display = (
         'name',
-        'household',
+        'household_admin_url',
         'concrete_guest',
         'out_of_town',
         'needs_transportation',
     )
+
     list_filter = (
         'household__concrete_guest',
         'household__out_of_town',
