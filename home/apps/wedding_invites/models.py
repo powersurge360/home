@@ -39,6 +39,7 @@ class Guest(models.Model):
             str(self.household),
         )
     household_admin_url.allow_tags = True
+    household_admin_url.short_description = 'Household Link'
 
     def concrete_guest(self):
         try:

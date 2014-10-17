@@ -22,6 +22,7 @@ class GuestAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'household_admin_url',
+        'household',
         'concrete_guest',
         'out_of_town',
         'needs_transportation',
