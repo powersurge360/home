@@ -22,11 +22,15 @@ class GuestAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'household_admin_url',
-        'household',
         'concrete_guest',
         'out_of_town',
         'needs_transportation',
     )
+
+    def queryset(self, *args):
+        queryset = super(GuestAdmin, self).queryset(*args)
+
+        return queryset.order_by('household')
 
     list_filter = (
         'household__concrete_guest',
