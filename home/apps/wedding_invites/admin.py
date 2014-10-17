@@ -47,8 +47,8 @@ class GuestAdmin(admin.ModelAdmin):
         'invite_sent',
     )
 
-    def queryset(self, *args):
-        queryset = super(GuestAdmin, self).queryset(*args)
+    def get_queryset(self, *args):
+        queryset = super(GuestAdmin, self).get_queryset(*args)
 
         return queryset.order_by('household')
 
