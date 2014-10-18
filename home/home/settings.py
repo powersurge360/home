@@ -30,7 +30,6 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -41,9 +40,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Third-party apps
+    'tinymce',
+    'rest_framework',
+
     # Our apps
     'apps.wedding_invites',
     'apps.vendors',
+    'apps.files',
 )
 
 MIDDLEWARE_CLASSES = (
