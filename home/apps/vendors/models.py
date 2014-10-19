@@ -48,7 +48,11 @@ class MenuItem(models.Model):
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2, blank=True)
 
-    seasons = models.ManyToManyField(Season, related_name='menu_items')
+    seasons = models.ManyToManyField(
+        Season,
+        related_name='menu_items',
+        blank=True,
+    )
     vendor = models.ForeignKey(Vendor, related_name='vendor')
     menu_category = models.ForeignKey(MenuCategory, related_name='menu_items')
 
