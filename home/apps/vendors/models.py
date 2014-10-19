@@ -46,7 +46,12 @@ class MenuCategory(models.Model):
 class MenuItem(models.Model):
     name = models.CharField(max_length=400)
     description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=8, decimal_places=2, blank=True)
+    price = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        blank=True,
+        null=True,
+    )
 
     seasons = models.ManyToManyField(
         Season,
