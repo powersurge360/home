@@ -1,0 +1,93 @@
+[
+    {
+        "model": "vendors.menucategory",
+        "pk": 1,
+        "fields": {
+            "name": "Fondue Table"
+        }
+    },
+    {
+        "model": "vendors.menucategory",
+        "pk": 2,
+        "fields": {
+            "name": "Hors D'Oeuvres"
+        }
+    },
+    {
+        "model": "vendors.menucategory",
+        "pk": 3,
+        "fields": {
+            "name": "Appetizers"
+        }
+    },
+    {
+        "model": "vendors.menucategory",
+        "pk": 4,
+        "fields": {
+            "name": "Alcohol"
+        }
+    },
+    {
+        "model": "vendors.menucategory",
+        "pk": 5,
+        "fields": {
+            "name": "Salad"
+        }
+    },
+    {
+        "model": "vendors.menucategory",
+        "pk": 6,
+        "fields": {
+            "name": "Soup"
+        }
+    },
+    {
+        "model": "vendors.menucategory",
+        "pk": 7,
+        "fields": {
+            "name": "Beef Entree"
+        }
+    },
+    {
+        "model": "vendors.menucategory",
+        "pk": 8,
+        "fields": {
+            "name": "Duet Entree"
+        }
+    },
+    {
+        "model": "vendors.menucategory",
+        "pk": 9,
+        "fields": {
+            "name": "Pork Entree"
+        }
+    },
+    {
+        "model": "vendors.menucategory",
+        "pk": 10,
+        "fields": {
+            "name": "Vegetarian Entree"
+        }
+    },
+    {
+        "model": "vendors.menucategory",
+        "pk": 11,
+        "fields": {
+            "name": "Poultry Entree"
+        }
+    },
+    {
+        "model": "vendors.menucategory",
+        "pk": 12,
+        "fields": {
+            "name": "Seafood Entree"
+        }
+    },
+    {
+        "model": "vendors.menucategory",
+        "pk": 13,
+        "fields": {
+            "name": "Pasta Entree"
+        }
+    }
+]
