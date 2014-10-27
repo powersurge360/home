@@ -40,6 +40,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Django Contrib
+    'django.contrib.sites',
+    'django.contrib.flatpages',
+
     # Third-party apps
     'tinymce',
     'rest_framework',
@@ -48,6 +52,7 @@ INSTALLED_APPS = (
     'apps.wedding_invites',
     'apps.vendors',
     'apps.files',
+    'apps.content',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -102,3 +107,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(META_DIR, 'static')
+SITE_ID = 1

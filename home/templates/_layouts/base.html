@@ -1,0 +1,23 @@
+{% load flatpages %}
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+	<title>Our Wedding Website</title>
+	<link rel="stylesheet" type="text/css" href="{% static "css/stylesheet.css" %}"/>
+
+</head>
+<body>
+	<nav>
+		{% get_flatpages as flatpages %}
+		<ul>
+			{% for page in flatpages %}
+
+			<li><a href="/pages{{ page.url }}">{{ page.title }}</a></li>
+			{% endfor %}
+		</ul>
+	</nav>
+	{% block content %}
+	{% endblock %}
+</body>
+</html>
