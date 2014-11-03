@@ -45,7 +45,6 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
 
     # Third-party apps
-    #'tinymce',
     'ckeditor',
     'rest_framework',
 
