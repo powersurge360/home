@@ -3,7 +3,7 @@ from django.contrib.flatpages.forms import FlatpageForm
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.flatpages.admin import FlatPageAdmin
 
-from tinymce.widgets import TinyMCE
+from ckeditor.widgets import CKEditorWidget
 
 # Register your models here.
 
@@ -11,8 +11,9 @@ from tinymce.widgets import TinyMCE
 class FlatPageForm(FlatpageForm):
     class Meta:
         model = FlatPage
+        exclude = [] 
         widgets = {
-            'content': TinyMCE(attrs={'cols': 100, 'rows': 15}),
+            'content': CKEditorWidget(config_name='default'),
         }
 
 

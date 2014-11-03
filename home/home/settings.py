@@ -45,15 +45,18 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
 
     # Third-party apps
-    'tinymce',
+    #'tinymce',
+    'ckeditor',
     'rest_framework',
 
     # Our apps
     'apps.wedding_invites',
     'apps.vendors',
-    'apps.files',
     'apps.content',
 )
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -106,5 +109,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(META_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 SITE_ID = 1
+
+CKEDITOR_UPLOAD_PATH = 'ckeditor/uploads/'
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'

@@ -1,4 +1,8 @@
 Django==1.7
-wsgiref==0.1.2
-django-tinymce==1.5.3
+Pillow==2.6.1
+django-ckeditor==4.4.6
+django-ckeditor-updated==4.4.4
+django-mptt==0.6.1
+django-polymorphic==0.6
 djangorestframework==2.4.3
+wsgiref==0.1.2

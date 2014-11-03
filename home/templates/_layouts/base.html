@@ -13,7 +13,7 @@
 		<ul>
 			{% for page in flatpages %}
 
-			<li><a href="/pages{{ page.url }}">{{ page.title }}</a></li>
+			<li><a href="{% url 'django.contrib.flatpages.views.flatpage' page.url %}">{{ page.title }}</a></li>
 			{% endfor %}
 		</ul>
 	</nav>
