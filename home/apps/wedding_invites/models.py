@@ -1,5 +1,8 @@
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -25,15 +28,6 @@ class Household(models.Model):
 class Guest(models.Model):
     name = models.CharField(max_length=100)
     notes = models.TextField(blank=True)
-    rsvp = models.CharField(
-        max_length=50,
-        default='no_response',
-        choices=[
-            ('no_response', 'No Response'),
-            ('yes', 'Yes'),
-            ('no', 'No'),
-        ]
-    )
     child = models.BooleanField(default=False)
 
     household = models.ForeignKey(
@@ -95,3 +89,62 @@ class Guest(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class RSVP(models.Model):
+    response = models.CharField(
+        max_length=50,
+        default='no_response',
+        choices=[
+            ('no_response', 'No Response'),
+            ('yes', 'Yes'),
+            ('no', 'No'),
+            ('yes_undecided', 'Yes, meal undecided'),
+        ]
+    )
+    special_requests = models.TextField(blank=True)
+
+    guest = models.OneToOneField(Guest, related_name='rsvp')
+    meal = models.ForeignKey(
+        'Meal',
+        related_name='rsvp',
+        blank=True,
+        null=True,
+    )
+
+    def clean(self):
+        if self.response == 'yes' and self.meal is None:
+            raise ValidationError('A meal is required for a yes response')
+
+        super(RSVP, self).clean()
+
+    def __unicode__(self):
+        return self.response
+
+    def guest_name(self):
+        try:
+            return self.guest.name
+        except AttributeError:
+            return ''
+
+    def meal_name(self):
+        try:
+            return self.meal.name
+        except AttributeError:
+            return ''
+
+
+class Meal(models.Model):
+    name = models.CharField(max_length=255)
+    kids_meal = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.name
+
+
+@receiver(post_save, sender=Guest)
+def create_rsvp_if_none(sender, instance, **kwargs):
+    try:
+        getattr(instance, 'rsvp')
+    except RSVP.DoesNotExist:
+        RSVP.objects.create(guest=instance)

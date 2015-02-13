@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.wedding_invites.models import Household, Guest
+from apps.wedding_invites.models import Household, Guest, Meal, RSVP
 
 
 # Custom filters
@@ -28,6 +28,7 @@ class GuestInline(admin.StackedInline):
     list_filter = ('concrete_guest',)
 
 
+# Model admins
 class HouseholdAdmin(admin.ModelAdmin):
     inlines = [
         GuestInline
@@ -67,5 +68,25 @@ class GuestAdmin(admin.ModelAdmin):
         'household__invite_sent',
     )
 
+
+class RSVPAdmin(admin.ModelAdmin):
+    list_display = ('guest_name', 'response', 'meal_name')
+
+    list_filter = (
+        'meal__name',
+        'response',
+    )
+
+    search_fields = (
+        'meal__name',
+        'response',
+    )
+
+
+class MealAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.register(Household, HouseholdAdmin)
 admin.site.register(Guest, GuestAdmin)
+admin.site.register(RSVP, RSVPAdmin)
+admin.site.register(Meal, MealAdmin)
