@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
 # Create your models here.
@@ -148,3 +148,11 @@ def create_rsvp_if_none(sender, instance, **kwargs):
         getattr(instance, 'rsvp')
     except RSVP.DoesNotExist:
         RSVP.objects.create(guest=instance)
+
+
+@receiver(pre_save, sender=Guest)
+def create_household_if_none(sender, instance, **kwargs):
+    try:
+        getattr(instance, 'household')
+    except Household.DoesNotExist:
+        instance.household = Household.objects.create()

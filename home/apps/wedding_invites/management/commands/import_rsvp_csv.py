@@ -17,13 +17,12 @@ class Command(BaseCommand):
     def create_rsvp(self, rsvp):
         guest_name, rsvp_option, meal_choice = rsvp
 
-        try:
-            guest = Guest.objects.get(name=guest_name)
-            meal = Meal.objects.get(name=meal_choice)
-            guest.rsvp.response = rsvp_option
+        guest, _ = Guest.objects.get_or_create(name=guest_name)
+        if rsvp_option == 'yes':
+            meal, _ = Meal.objects.get_or_create(name=meal_choice)
             guest.rsvp.meal = meal
 
-            guest.rsvp.save()
-            guest.save()
-        except (Guest.DoesNotExist, Meal.DoesNotExist):
-            pass
+        guest.rsvp.response = rsvp_option
+
+        guest.rsvp.save()
+        guest.save()

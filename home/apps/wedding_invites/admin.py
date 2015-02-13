@@ -78,6 +78,7 @@ class RSVPAdmin(admin.ModelAdmin):
     )
 
     search_fields = (
+        'guest__name',
         'meal__name',
         'response',
     )
