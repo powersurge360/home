@@ -44,6 +44,7 @@ class Guest(models.Model):
         related_name='guests',
         null=True,
         blank=True,
+        on_delete=models.SET_NULL,
     )
 
     # For admin
