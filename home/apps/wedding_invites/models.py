@@ -4,9 +4,17 @@ from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
-# Create your models here.
+
+# Custom Querysets
+class TableQueryset(models.QuerySet):
+    def for_guests(self, guest_queryset):
+        guest_ids = [guest.id for guest in guest_queryset.all()]
+        return (self
+                .select_related('guest__rsvp', 'guest__rsvp__meal')
+                .filter(guests__id__in=guest_ids))
 
 
+# Models
 class Household(models.Model):
     address = models.TextField(blank=True)
     out_of_town = models.BooleanField(default=False)
@@ -25,6 +33,8 @@ class Household(models.Model):
 
 class Table(models.Model):
     identifier = models.CharField(max_length=100)
+
+    objects = TableQueryset.as_manager()
 
     def __unicode__(self):
         return self.identifier

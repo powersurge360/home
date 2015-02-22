@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>Wedding Tables & Meals</title>
+    </head>
+    <body>
+        {% for table in tables %}
+            <p>{{ table }}</p>
+
+            <ul>
+                {% for guest in table.guests.all %}
+                    <li> {{ guest }} - {{ guest.rsvp.meal.name }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </body>
+</html>

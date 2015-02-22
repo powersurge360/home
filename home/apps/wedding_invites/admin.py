@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.shortcuts import render_to_response
 
 from apps.wedding_invites.models import Household, Guest, Meal, RSVP, Table
 
@@ -76,11 +77,6 @@ class GuestAdmin(admin.ModelAdmin):
         'table_name',
     )
 
-    def get_queryset(self, *args):
-        queryset = super(GuestAdmin, self).get_queryset(*args)
-
-        return queryset.order_by('household')
-
     search_fields = (
         'name',
         'household__address',
@@ -96,6 +92,23 @@ class GuestAdmin(admin.ModelAdmin):
         'rsvp__response',
         TableIdentiferFilter
     )
+
+    def get_queryset(self, *args):
+        queryset = super(GuestAdmin, self).get_queryset(*args)
+
+        return queryset.order_by('household')
+
+    def export_plain_text_tables(self, request, queryset):
+        return render_to_response(
+            'wedding_invites/admin/tables_with_meal.html',
+            {
+                'tables': Table.objects.for_guests(queryset),
+            }
+        )
+
+    export_plain_text_tables.short_description = 'Export tables with meal'
+
+    actions = [export_plain_text_tables]
 
 
 class RSVPAdmin(admin.ModelAdmin):

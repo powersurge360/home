@@ -1,0 +1,7 @@
+{% for table in tables %}
+{{ table }}
+
+{% for guest in table.guests.all %}
+{{ guest }} {{ guest.rsvp.meal.name }}
+{% endfor %}
+{% endfor %}
