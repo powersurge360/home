@@ -11,6 +11,7 @@ class TableQueryset(models.QuerySet):
         guest_ids = [guest.id for guest in guest_queryset.all()]
         return (self
                 .select_related('guest__rsvp', 'guest__rsvp__meal')
+                .distinct()
                 .filter(guests__id__in=guest_ids))
 
 
