@@ -102,7 +102,7 @@ class GuestAdmin(admin.ModelAdmin):
         return render_to_response(
             'wedding_invites/admin/tables_with_meal.html',
             {
-                'tables': Table.objects.for_guests(queryset).by_number(),
+                'tables': Table.objects.for_guests(queryset).by_number('desc'),
             }
         )
 
