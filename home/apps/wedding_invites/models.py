@@ -9,9 +9,7 @@ from django.dispatch import receiver
 
 class Household(models.Model):
     address = models.TextField(blank=True)
-    concrete_guest = models.BooleanField(default=True)
     out_of_town = models.BooleanField(default=False)
-    needs_transportation = models.BooleanField(default=False)
     save_the_date_sent = models.BooleanField(default=False)
     invite_sent = models.BooleanField(default=False)
     notes = models.TextField(blank=True)
@@ -25,6 +23,13 @@ class Household(models.Model):
         return self.address
 
 
+class Table(models.Model):
+    identifier = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return self.identifier
+
+
 class Guest(models.Model):
     name = models.CharField(max_length=100)
     notes = models.TextField(blank=True)
@@ -33,6 +38,12 @@ class Guest(models.Model):
     household = models.ForeignKey(
         Household,
         related_name='residents',
+    )
+    table = models.ForeignKey(
+        Table,
+        related_name='guests',
+        null=True,
+        blank=True,
     )
 
     # For admin
@@ -46,14 +57,6 @@ class Guest(models.Model):
         )
     household_admin_url.allow_tags = True
     household_admin_url.short_description = 'Household Link'
-
-    def concrete_guest(self):
-        try:
-            return self.household.concrete_guest
-        except AttributeError:
-            return False
-
-    concrete_guest.boolean = True
 
     def save_the_date_sent(self):
         try:
@@ -79,13 +82,14 @@ class Guest(models.Model):
 
     out_of_town.boolean = True
 
-    def needs_transportation(self):
-        try:
-            return self.household.needs_transportation
-        except AttributeError:
-            return False
+    def rsvp_response(self):
+        return self.rsvp.get_response_display()
 
-    needs_transportation.boolean = True
+    def table_name(self):
+        try:
+            return self.table.identifier
+        except AttributeError:
+            return 'No table assigned'
 
     def __unicode__(self):
         return self.name
