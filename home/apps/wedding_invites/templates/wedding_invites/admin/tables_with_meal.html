@@ -4,7 +4,7 @@
     </head>
     <body>
         {% for table in tables %}
-            <p>{{ table }}</p>
+            <p>{{ table }} {% if table.table_number %} - Table #{{ table.table_number}} {% endif %}</p>
 
             <ul>
                 {% for guest in table.guests.all %}

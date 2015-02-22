@@ -14,6 +14,15 @@ class TableQueryset(models.QuerySet):
                 .distinct()
                 .filter(guests__id__in=guest_ids))
 
+    def by_number(self, sort='asc'):
+        if sort not in {'asc', 'desc'}:
+            sort = 'asc'
+
+        if sort == 'asc':
+            return self.order_by('table_number')
+        elif sort == 'desc':
+            return self.order_by('-table_number')
+
 
 # Models
 class Household(models.Model):
@@ -33,7 +42,8 @@ class Household(models.Model):
 
 
 class Table(models.Model):
-    identifier = models.CharField(max_length=100)
+    identifier = models.CharField(max_length=100, unique=True)
+    table_number = models.IntegerField(null=True, blank=True, unique=True)
 
     objects = TableQueryset.as_manager()
 
